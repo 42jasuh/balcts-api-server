@@ -22,40 +22,57 @@
 - **Django Admin**: 애플리케이션 데이터를 쉽게 관리할 수 있는 Django Admin 통합.
 - **인증**: Django의 내장 기능을 사용한 기본 인증 설정.
 
+## 필수 소프트웨어
+
+1. **python**
+   - Python 3.12.2
+
+2. **docker**
+   - Docker version 27.1.1
+
 ## 설치 방법
 
-해당 프로젝트의 DB는 postgresql로 설정으로 되어 있어 로컬에 DB가 먼저 구동되어 있어야지만 유효합니다. 프로젝트 구축은 쿠버네티스 레포지토리를 참고해주세요:
+해당 프로젝트의 DB는 postgresql로 설정으로 되어 있어 로컬에 DB가 먼저 구동되어 있어야지만 유효하여 [쿠버네티스](https://github.com/42jasuh/balcts-kubernetes/blob/main/README.md) 레포지토리를 참조하여 구축하실 수 있습니다. 아래는 로컬환경에서 일반적으로 구축하는 방법을 적어놓았습니다.(장고 SQLite)
 
-아래는 장고 내 SQLite를 활용했을 때 프로젝트 구축 순서입니다.
+0. **로컬환경에 구축 시 settings.py 수정 필요**
 
-1. **레포지토리 클론**
+    ```python
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": "mydatabase",
+        }
+    }
+    ```
+
+2. **레포지토리 클론**
 
     ```bash
     git clone git@github.com:42jasuh/balcts-api-server.git
     cd balcts-api-server
     ```
 
-2. **가상 환경 설정**
+3. **가상 환경 설정**
 
     ```bash
     python -m venv venv
     source venv/bin/activate  # Windows에서는 `venv\Scripts\activate` 사용
     ```
 
-3. **종속성 설치**
+4. **종속성 설치**
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. **마이그레이션 적용**
+5. **마이그레이션 적용**
 
     ```bash
     DB가 postgresql로 설정이 되어 있어 로컬에 DB가 먼저 구동되어 있어야지만 유효합니다.
     python manage.py migrate
     ```
 
-5. **개발 서버 실행**
+6. **개발 서버 실행**
 
     ```bash
     DB가 postgresql로 설정이 되어 있어 로컬에 DB가 먼저 구동되어 있어야지만 유효합니다.
